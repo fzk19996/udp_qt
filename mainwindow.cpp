@@ -161,8 +161,10 @@ void MainWindow::on_bt_task_begin_clicked()
     }
     if(isDigitStr(ui->cache_size_edit->toPlainText())==0){
         std::cout << "未输入分片大小" << std::endl;
+        ui->text_console->setText("haven't fen pian");
         return;
     }
+    ui->text_console->setText("task begin\n target ip:"+ui->target_ip_edit->toPlainText());
     _is_tasking = 1;
     int buf_size = ui->cache_size_edit->toPlainText().toInt();
     UDP_PACKET send_data;
@@ -173,6 +175,7 @@ void MainWindow::on_bt_task_begin_clicked()
     else
         send_data.total_len = (int)(_len_send_data/buf_size)+1;
     std::cout <<"分成"<<send_data.total_len <<"片"<< std::endl;
+    ui->text_console->append("dived into "+send_data.total_len);
     send_data.packet_len = buf_size;
     send_data.index = 0;
     send_data.uuid = generate_uuid();
