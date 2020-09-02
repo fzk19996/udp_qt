@@ -53,8 +53,6 @@ public:
     QLabel *label_8;
     QComboBox *comboBox_4;
     QGroupBox *groupBox_5;
-    QLabel *label_9;
-    QComboBox *comboBox_5;
     QLabel *label_10;
     QComboBox *comboBox_6;
     QGroupBox *groupBox_6;
@@ -63,7 +61,7 @@ public:
     QLabel *label_sended_3;
     QLabel *label_speed_3;
     QPushButton *bt_task_begin;
-    QPushButton *bt_detect_net_5;
+    QPushButton *bt_stop_task;
     QLabel *label_18;
     QTextEdit *data_edit;
     QTextEdit *text_console;
@@ -148,12 +146,6 @@ public:
         groupBox_5 = new QGroupBox(groupBox_2);
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
         groupBox_5->setGeometry(QRect(10, 220, 211, 80));
-        label_9 = new QLabel(groupBox_5);
-        label_9->setObjectName(QStringLiteral("label_9"));
-        label_9->setGeometry(QRect(10, 20, 59, 14));
-        comboBox_5 = new QComboBox(groupBox_5);
-        comboBox_5->setObjectName(QStringLiteral("comboBox_5"));
-        comboBox_5->setGeometry(QRect(70, 20, 131, 22));
         label_10 = new QLabel(groupBox_5);
         label_10->setObjectName(QStringLiteral("label_10"));
         label_10->setGeometry(QRect(10, 50, 71, 16));
@@ -178,9 +170,9 @@ public:
         bt_task_begin = new QPushButton(groupBox_6);
         bt_task_begin->setObjectName(QStringLiteral("bt_task_begin"));
         bt_task_begin->setGeometry(QRect(30, 110, 80, 22));
-        bt_detect_net_5 = new QPushButton(groupBox_6);
-        bt_detect_net_5->setObjectName(QStringLiteral("bt_detect_net_5"));
-        bt_detect_net_5->setGeometry(QRect(130, 110, 80, 22));
+        bt_stop_task = new QPushButton(groupBox_6);
+        bt_stop_task->setObjectName(QStringLiteral("bt_stop_task"));
+        bt_stop_task->setGeometry(QRect(130, 110, 80, 22));
         label_18 = new QLabel(groupBox_6);
         label_18->setObjectName(QStringLiteral("label_18"));
         label_18->setGeometry(QRect(10, 30, 61, 16));
@@ -250,15 +242,11 @@ public:
          << QApplication::translate("MainWindow", "Gzip", Q_NULLPTR)
         );
         groupBox_5->setTitle(QApplication::translate("MainWindow", "\344\274\240\350\276\223\351\205\215\347\275\256", Q_NULLPTR));
-        label_9->setText(QApplication::translate("MainWindow", "\345\215\217\350\256\256", Q_NULLPTR));
-        comboBox_5->clear();
-        comboBox_5->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "udp", Q_NULLPTR)
-        );
         label_10->setText(QApplication::translate("MainWindow", "\345\267\256\351\224\231\346\243\200\346\265\213", Q_NULLPTR));
         comboBox_6->clear();
         comboBox_6->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "\345\245\207\345\201\266\346\240\241\351\252\214", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "CRC\346\240\241\351\252\214", Q_NULLPTR)
         );
         groupBox_6->setTitle(QApplication::translate("MainWindow", "\346\225\260\346\215\256\344\274\240\350\276\223", Q_NULLPTR));
         label_16->setText(QString());
@@ -266,7 +254,7 @@ public:
         label_sended_3->setText(QString());
         label_speed_3->setText(QString());
         bt_task_begin->setText(QApplication::translate("MainWindow", "begin", Q_NULLPTR));
-        bt_detect_net_5->setText(QApplication::translate("MainWindow", "stop", Q_NULLPTR));
+        bt_stop_task->setText(QApplication::translate("MainWindow", "stop", Q_NULLPTR));
         label_18->setText(QApplication::translate("MainWindow", "\350\276\223\345\205\245\346\225\260\346\215\256", Q_NULLPTR));
         label_15->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\347\252\227\345\217\243", Q_NULLPTR));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", Q_NULLPTR));

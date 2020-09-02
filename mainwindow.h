@@ -60,9 +60,8 @@ private slots:
     void tcpClientDataReceived();
     void recv_udp_data();
 
-    void on_bt_choose_file_clicked();
 
-    void on_bt_init_clicked();
+    void on_bt_stop_task_clicked();
 
 private:
     Ui::MainWindow *ui;

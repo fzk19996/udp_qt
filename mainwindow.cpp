@@ -61,8 +61,11 @@ static void signal_handler(int signo) {
 
 void alarm_handler(int sloi)
 {
+    if(_is_tasking==0)
+        return;
     _resend_times += 1;
     ui_cpy->text_console->append("传输超时，正在重传");
+    std::cout << "传输超时，正在重传"<<std::endl;
     if(_resend_times>=5){
         std::cout << "传输失败超过５次" << std::endl;
         ui_cpy->text_console->append("重传次数超过限制，结束任务");
@@ -152,6 +155,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_bt_detect_net_clicked()
 {
+    if(!_targetIp->setAddress(ui->target_ip_edit->toPlainText())){
+        std::cout << "ip error" << std::endl;
+        ui->text_console->setText("没有输入正确的目标ip");
+        return;
+    }
     QString str_ip = ui->target_ip_edit->toPlainText();
     std::cout << str_ip.toStdString().data() << std::endl;
     char*  target_ip;
@@ -189,8 +197,8 @@ void MainWindow::on_bt_task_begin_clicked()
         ui->text_console->setText("没有输入正确的分片大小");
         return;
     }
-    QString str = ui->text_console->toPlainText();
-    QByteArray qb = str.toLatin1();
+    QString str = ui->data_edit->toPlainText();
+    QByteArray qb = str.toLocal8Bit();
     if(_ptr_send_data){
         delete _ptr_send_data;
     }
@@ -210,10 +218,14 @@ void MainWindow::on_bt_task_begin_clicked()
         send_data.total_len = (int)(_len_send_data/buf_size);
     else
         send_data.total_len = (int)(_len_send_data/buf_size)+1;
-    ui->text_console->append("任务开始");
-    ui->text_console->append("目标ip:"+ui->target_ip_edit->toPlainText());
-    ui->text_console->append("分片大小:"+buf_size);
-    ui->text_console->append("分片个数:"+send_data.total_len);
+    std::cout << "任务开始" << std::endl;
+    std::cout << "目标ip:" << ui->target_ip_edit->toPlainText().toLocal8Bit().data() << std::endl;
+    std::cout << "分片大小:" << buf_size << std::endl;
+    std::cout << "分片个数:" << send_data.total_len << std::endl;
+//    ui->text_console->append("任务开始");
+//    ui->text_console->append("目标ip:"+ui->target_ip_edit->toPlainText());
+//    ui->text_console->append("分片大小:"+buf_size);
+//    ui->text_console->append("分片个数:"+send_data.total_len);
 
     send_data.packet_len = buf_size;
     send_data.index = 0;
@@ -226,10 +238,10 @@ void MainWindow::on_bt_task_begin_clicked()
     _resend_data_size = buf_size+sizeof(UDP_PACKET);
     alarm(_resend_wait_time);
     _send_index = 0;
-    QString s = "正在传输第"+(_send_index+1);
-    s += "片数据";
-    ui->text_console->append(s);
-
+//    QString s = "正在传输第"+(_send_index+1);
+//    s += "片数据";
+//    ui->text_console->append(s);
+     std::cout << "正在傳輸:" << (_send_index+1) << "片數據" << std::endl;
 }
 
 void MainWindow::tcpClientDataReceived(){
@@ -251,7 +263,7 @@ void MainWindow::recv_udp_data()
     if(!_udpSock_r->hasPendingDatagrams()){
         return;
     }
-    std::cout << "收到数据"<<_udpSock_r->pendingDatagramSize()<<std::endl;
+//    std::cout << "收到数据"<<_udpSock_r->pendingDatagramSize()<<std::endl;
     QHostAddress recv_addr;
     quint16 recv_port;
     UDP_PACKET recv_data;
@@ -266,7 +278,7 @@ void MainWindow::recv_udp_data()
             char *data_ptr = (char*)malloc(recv_data.total_len*recv_data.packet_len);
             _recv_data_map.insert(recv_data.uuid, data_ptr);
         }
-        std::cout << "index:" << recv_data.index << std::endl;
+//        std::cout << "index:" << recv_data.index << std::endl;
         if (!_recv_data_map.contains(recv_data.uuid)){
             return;
         }
@@ -294,6 +306,8 @@ void MainWindow::recv_udp_data()
     //接收确认包
     else if (recv_data.type=TYPE_PROTOCOL){
         if(recv_data.flag==FLAG_ACK){
+            if(_is_tasking==0)
+                return;
             alarm(0);
             delete _resend_data_packet;
             if(_send_index+1!=recv_data.index)
@@ -302,9 +316,11 @@ void MainWindow::recv_udp_data()
                 std::cout<<"传输成功"<<std::endl;
                 _resend_times = 0;
                 _send_index = -100;
+                _is_tasking = 0;
                 return;
             }
-            ui->text_console->append((_send_index+1)+"片数据传输成功");
+//            ui->text_console->append((_send_index+1)+"片数据传输成功");
+            std::cout << "第" << (_send_index+1) << "片數據傳輸成功" << std::endl;
             UDP_PACKET send_data;
             send_data.type = TYPE_DATA;
             send_data.flag = FLAG_SEND;
@@ -322,31 +338,16 @@ void MainWindow::recv_udp_data()
             alarm(_resend_wait_time);
 
             _send_index += 1;
-            QString s = "正在传输第"+(_send_index+1);
-            s += "片数据";
-            ui->text_console->append(s);
+//            QString s = "正在传输第"+(_send_index+1);
+//            s += "片数据";
+//            ui->text_console->append(s);
+            std::cout << "正在傳輸:" << (_send_index+1) << "片數據" << std::endl;
         }
 
     }
 
 }
 
-
-void MainWindow::on_bt_choose_file_clicked()
-{
-    QString retValue = QFileDialog::getOpenFileName(
-            this,
-            tr("open a file."),
-            "/home/kaikai",
-            tr("images(*.png *jpeg *bmp);;video files(*.avi *.mp4 *.wmv);;All files(*.*)"));
-    if (!retValue.isNull()) {
-        curFile = new QFile(retValue);
-        if (!curFile->open(QFile::ReadOnly | QIODevice::Truncate)) {
-           QMessageBox::information(this,tr("错误"),tr("open file failed"));
-           return;
-        }
-    }
-}
 
 int MainWindow::init()
 {
@@ -356,22 +357,24 @@ int MainWindow::init()
     ui->text_console->document()->setMaximumBlockCount(10);
     ui_cpy = ui;
 
+
 }
 
 void MainWindow::merge_packet(int uuid, int data_size)
 {
     char *data_buf = _recv_data_map.find(uuid).value();
-    unsigned char data_buf2[10];
+
     std::cout << "merge data" << std::endl;
-    for(int i=0;i<10;i++){
-        std::cout << std::hex <<  (unsigned int) (unsigned char)data_buf[i] << std::endl;
-    }
+//    for(int i=0;i<10;i++){
+//        std::cout << std::hex <<  (unsigned int) (unsigned char)data_buf[i] << std::endl;
+//    }
     QString str = QString(QByteArray(data_buf, data_size));
     ui->text_console->setText("收到数据："+str);
-
+    std::cout << "收到數據:" << str.toLocal8Bit().data() << std::endl;
 }
 
-void MainWindow::on_bt_init_clicked()
+
+void MainWindow::on_bt_stop_task_clicked()
 {
-   init();
+   _is_tasking = 0;
 }
