@@ -340,8 +340,7 @@ void MainWindow::on_bt_choose_file_clicked()
 int MainWindow::init()
 {
     _udpSock_r=new QUdpSocket(this);
-    int port = ui->port_edit->toPlainText().toInt();
-     _udpSock_r->bind(port);
+     _udpSock_r->bind(UDP_R_PORT);
     connect(_udpSock_r,SIGNAL(readyRead()),this,SLOT(recv_udp_data()));
     ui->text_console->document()->setMaximumBlockCount(10);
     ui_cpy = ui;
