@@ -189,6 +189,18 @@ void MainWindow::on_bt_task_begin_clicked()
         ui->text_console->setText("没有输入正确的分片大小");
         return;
     }
+    QString str = ui->text_console->toPlainText();
+    QByteArray qb = str.toLatin1();
+    if(_ptr_send_data){
+        delete _ptr_send_data;
+    }
+    if(qb.length()==0){
+        ui->text_console->setText("还未输入数据");
+        return;
+    }
+    _ptr_send_data = (char*)malloc(qb.length());
+    _len_send_data = qb.length();
+    memcpy(_ptr_send_data, qb.data(), qb.length());
     _is_tasking = 1;
     int buf_size = ui->cache_size_edit->toPlainText().toInt();
     UDP_PACKET send_data;
@@ -199,7 +211,7 @@ void MainWindow::on_bt_task_begin_clicked()
     else
         send_data.total_len = (int)(_len_send_data/buf_size)+1;
     ui->text_console->append("任务开始");
-    ui->text_console->append("目标ip:");
+    ui->text_console->append("目标ip:"+ui->target_ip_edit->toPlainText());
     ui->text_console->append("分片大小:"+buf_size);
     ui->text_console->append("分片个数:"+send_data.total_len);
 
@@ -209,7 +221,6 @@ void MainWindow::on_bt_task_begin_clicked()
     char *data_send_buf = (char*)malloc(buf_size+sizeof(UDP_PACKET));
     memcpy(data_send_buf, &send_data, sizeof(UDP_PACKET));
     memcpy(data_send_buf+sizeof(UDP_PACKET), _ptr_send_data, buf_size);
-    _target_port = ui->port_edit2->toPlainText().toInt();
     _udpSock_r->writeDatagram(data_send_buf, buf_size+sizeof(UDP_PACKET), *_targetIp, UDP_R_PORT);
     _resend_data_packet = data_send_buf;
     _resend_data_size = buf_size+sizeof(UDP_PACKET);
@@ -356,7 +367,7 @@ void MainWindow::merge_packet(int uuid, int data_size)
         std::cout << std::hex <<  (unsigned int) (unsigned char)data_buf[i] << std::endl;
     }
     QString str = QString(QByteArray(data_buf, data_size));
-    ui->text_console->setText("receive_data"+str);
+    ui->text_console->setText("收到数据："+str);
 
 }
 

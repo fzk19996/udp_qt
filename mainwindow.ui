@@ -81,8 +81,8 @@
     <widget class="QLabel" name="label_recieved">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>60</y>
+       <x>80</x>
+       <y>80</y>
        <width>121</width>
        <height>16</height>
       </rect>
@@ -133,19 +133,9 @@
     <widget class="QTextEdit" name="target_ip_edit">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>30</y>
-       <width>104</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="port_edit2">
-     <property name="geometry">
-      <rect>
        <x>80</x>
-       <y>0</y>
-       <width>104</width>
+       <y>30</y>
+       <width>191</width>
        <height>21</height>
       </rect>
      </property>
@@ -199,12 +189,7 @@
       </property>
       <item>
        <property name="text">
-        <string>Fragmentation</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>None</string>
+        <string>分片</string>
        </property>
       </item>
      </widget>
@@ -230,6 +215,9 @@
         <height>21</height>
        </rect>
       </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_4">
@@ -242,7 +230,7 @@
       </rect>
      </property>
      <property name="title">
-      <string>compress config</string>
+      <string>压缩策略</string>
      </property>
      <widget class="QLabel" name="label_7">
       <property name="geometry">
@@ -254,7 +242,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>policy</string>
+       <string>策略</string>
       </property>
      </widget>
      <widget class="QComboBox" name="comboBox_3">
@@ -268,12 +256,12 @@
       </property>
       <item>
        <property name="text">
-        <string>Compress</string>
+        <string>压缩</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>None</string>
+        <string>不进行操作</string>
        </property>
       </item>
      </widget>
@@ -287,7 +275,7 @@
        </rect>
       </property>
       <property name="text">
-       <string> algorithm</string>
+       <string>算法</string>
       </property>
      </widget>
      <widget class="QComboBox" name="comboBox_4">
@@ -321,7 +309,7 @@
       </rect>
      </property>
      <property name="title">
-      <string>transfer config</string>
+      <string>传输配置</string>
      </property>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
@@ -333,7 +321,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>protocol</string>
+       <string>协议</string>
       </property>
      </widget>
      <widget class="QComboBox" name="comboBox_5">
@@ -345,11 +333,6 @@
         <height>22</height>
        </rect>
       </property>
-      <item>
-       <property name="text">
-        <string>tcp</string>
-       </property>
-      </item>
       <item>
        <property name="text">
         <string>udp</string>
@@ -366,7 +349,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Err Det</string>
+       <string>差错检测</string>
       </property>
      </widget>
      <widget class="QComboBox" name="comboBox_6">
@@ -380,7 +363,7 @@
       </property>
       <item>
        <property name="text">
-        <string>Parity Check</string>
+        <string>奇偶校验</string>
        </property>
       </item>
      </widget>
@@ -396,19 +379,19 @@
      </rect>
     </property>
     <property name="title">
-     <string>DataTransfer</string>
+     <string>数据传输</string>
     </property>
     <widget class="QLabel" name="label_16">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>60</y>
+       <y>56</y>
        <width>61</width>
-       <height>16</height>
+       <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>progress</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_17">
@@ -421,20 +404,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>task</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_recieved_3">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>60</y>
-       <width>51</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
+      <string>操作</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_sended_3">
@@ -476,19 +446,6 @@
       <string>begin</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="bt_choose_file">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>30</y>
-       <width>80</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>ChooseFile</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="bt_detect_net_5">
      <property name="geometry">
       <rect>
@@ -500,6 +457,29 @@
      </property>
      <property name="text">
       <string>stop</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>61</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>输入数据</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="data_edit">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>50</y>
+       <width>211</width>
+       <height>41</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -523,30 +503,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>console</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="port_edit">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>190</y>
-      <width>104</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bt_init">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>190</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>begin</string>
+     <string>显示窗口</string>
     </property>
    </widget>
   </widget>

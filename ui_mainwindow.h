@@ -41,7 +41,6 @@ public:
     QLabel *label_speed;
     QPushButton *bt_detect_net;
     QTextEdit *target_ip_edit;
-    QTextEdit *port_edit2;
     QGroupBox *groupBox_2;
     QGroupBox *groupBox_3;
     QLabel *label_5;
@@ -61,16 +60,14 @@ public:
     QGroupBox *groupBox_6;
     QLabel *label_16;
     QLabel *label_17;
-    QLabel *label_recieved_3;
     QLabel *label_sended_3;
     QLabel *label_speed_3;
     QPushButton *bt_task_begin;
-    QPushButton *bt_choose_file;
     QPushButton *bt_detect_net_5;
+    QLabel *label_18;
+    QTextEdit *data_edit;
     QTextEdit *text_console;
     QLabel *label_15;
-    QTextEdit *port_edit;
-    QPushButton *bt_init;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -101,7 +98,7 @@ public:
         label_4->setGeometry(QRect(10, 120, 51, 16));
         label_recieved = new QLabel(groupBox);
         label_recieved->setObjectName(QStringLiteral("label_recieved"));
-        label_recieved->setGeometry(QRect(90, 60, 121, 16));
+        label_recieved->setGeometry(QRect(80, 80, 121, 16));
         label_duration = new QLabel(groupBox);
         label_duration->setObjectName(QStringLiteral("label_duration"));
         label_duration->setGeometry(QRect(90, 90, 121, 16));
@@ -113,10 +110,7 @@ public:
         bt_detect_net->setGeometry(QRect(70, 140, 80, 22));
         target_ip_edit = new QTextEdit(groupBox);
         target_ip_edit->setObjectName(QStringLiteral("target_ip_edit"));
-        target_ip_edit->setGeometry(QRect(90, 30, 104, 21));
-        port_edit2 = new QTextEdit(groupBox);
-        port_edit2->setObjectName(QStringLiteral("port_edit2"));
-        port_edit2->setGeometry(QRect(80, 0, 104, 21));
+        target_ip_edit->setGeometry(QRect(80, 30, 191, 21));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(20, 210, 231, 321));
@@ -135,6 +129,7 @@ public:
         cache_size_edit = new QTextEdit(groupBox_3);
         cache_size_edit->setObjectName(QStringLiteral("cache_size_edit"));
         cache_size_edit->setGeometry(QRect(70, 50, 131, 21));
+        cache_size_edit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         groupBox_4 = new QGroupBox(groupBox_2);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(10, 130, 211, 80));
@@ -170,13 +165,10 @@ public:
         groupBox_6->setGeometry(QRect(300, 20, 231, 171));
         label_16 = new QLabel(groupBox_6);
         label_16->setObjectName(QStringLiteral("label_16"));
-        label_16->setGeometry(QRect(10, 60, 61, 16));
+        label_16->setGeometry(QRect(10, 56, 61, 20));
         label_17 = new QLabel(groupBox_6);
         label_17->setObjectName(QStringLiteral("label_17"));
         label_17->setGeometry(QRect(10, 90, 61, 16));
-        label_recieved_3 = new QLabel(groupBox_6);
-        label_recieved_3->setObjectName(QStringLiteral("label_recieved_3"));
-        label_recieved_3->setGeometry(QRect(90, 60, 51, 16));
         label_sended_3 = new QLabel(groupBox_6);
         label_sended_3->setObjectName(QStringLiteral("label_sended_3"));
         label_sended_3->setGeometry(QRect(90, 90, 51, 16));
@@ -186,24 +178,21 @@ public:
         bt_task_begin = new QPushButton(groupBox_6);
         bt_task_begin->setObjectName(QStringLiteral("bt_task_begin"));
         bt_task_begin->setGeometry(QRect(30, 110, 80, 22));
-        bt_choose_file = new QPushButton(groupBox_6);
-        bt_choose_file->setObjectName(QStringLiteral("bt_choose_file"));
-        bt_choose_file->setGeometry(QRect(80, 30, 80, 22));
         bt_detect_net_5 = new QPushButton(groupBox_6);
         bt_detect_net_5->setObjectName(QStringLiteral("bt_detect_net_5"));
         bt_detect_net_5->setGeometry(QRect(130, 110, 80, 22));
+        label_18 = new QLabel(groupBox_6);
+        label_18->setObjectName(QStringLiteral("label_18"));
+        label_18->setGeometry(QRect(10, 30, 61, 16));
+        data_edit = new QTextEdit(groupBox_6);
+        data_edit->setObjectName(QStringLiteral("data_edit"));
+        data_edit->setGeometry(QRect(30, 50, 211, 41));
         text_console = new QTextEdit(centralWidget);
         text_console->setObjectName(QStringLiteral("text_console"));
         text_console->setGeometry(QRect(310, 240, 221, 281));
         label_15 = new QLabel(centralWidget);
         label_15->setObjectName(QStringLiteral("label_15"));
         label_15->setGeometry(QRect(300, 210, 59, 14));
-        port_edit = new QTextEdit(centralWidget);
-        port_edit->setObjectName(QStringLiteral("port_edit"));
-        port_edit->setGeometry(QRect(380, 190, 104, 21));
-        bt_init = new QPushButton(centralWidget);
-        bt_init->setObjectName(QStringLiteral("bt_init"));
-        bt_init->setGeometry(QRect(290, 190, 80, 22));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -244,46 +233,42 @@ public:
         label_5->setText(QApplication::translate("MainWindow", "\347\255\226\347\225\245", Q_NULLPTR));
         comboBox_2->clear();
         comboBox_2->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Fragmentation", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "None", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "\345\210\206\347\211\207", Q_NULLPTR)
         );
         label_6->setText(QApplication::translate("MainWindow", "\345\244\247\345\260\217", Q_NULLPTR));
-        groupBox_4->setTitle(QApplication::translate("MainWindow", "compress config", Q_NULLPTR));
-        label_7->setText(QApplication::translate("MainWindow", "policy", Q_NULLPTR));
+        groupBox_4->setTitle(QApplication::translate("MainWindow", "\345\216\213\347\274\251\347\255\226\347\225\245", Q_NULLPTR));
+        label_7->setText(QApplication::translate("MainWindow", "\347\255\226\347\225\245", Q_NULLPTR));
         comboBox_3->clear();
         comboBox_3->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Compress", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "None", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "\345\216\213\347\274\251", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "\344\270\215\350\277\233\350\241\214\346\223\215\344\275\234", Q_NULLPTR)
         );
-        label_8->setText(QApplication::translate("MainWindow", " algorithm", Q_NULLPTR));
+        label_8->setText(QApplication::translate("MainWindow", "\347\256\227\346\263\225", Q_NULLPTR));
         comboBox_4->clear();
         comboBox_4->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "Snappy", Q_NULLPTR)
          << QApplication::translate("MainWindow", "Gzip", Q_NULLPTR)
         );
-        groupBox_5->setTitle(QApplication::translate("MainWindow", "transfer config", Q_NULLPTR));
-        label_9->setText(QApplication::translate("MainWindow", "protocol", Q_NULLPTR));
+        groupBox_5->setTitle(QApplication::translate("MainWindow", "\344\274\240\350\276\223\351\205\215\347\275\256", Q_NULLPTR));
+        label_9->setText(QApplication::translate("MainWindow", "\345\215\217\350\256\256", Q_NULLPTR));
         comboBox_5->clear();
         comboBox_5->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "tcp", Q_NULLPTR)
          << QApplication::translate("MainWindow", "udp", Q_NULLPTR)
         );
-        label_10->setText(QApplication::translate("MainWindow", "Err Det", Q_NULLPTR));
+        label_10->setText(QApplication::translate("MainWindow", "\345\267\256\351\224\231\346\243\200\346\265\213", Q_NULLPTR));
         comboBox_6->clear();
         comboBox_6->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Parity Check", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "\345\245\207\345\201\266\346\240\241\351\252\214", Q_NULLPTR)
         );
-        groupBox_6->setTitle(QApplication::translate("MainWindow", "DataTransfer", Q_NULLPTR));
-        label_16->setText(QApplication::translate("MainWindow", "progress", Q_NULLPTR));
-        label_17->setText(QApplication::translate("MainWindow", "task", Q_NULLPTR));
-        label_recieved_3->setText(QString());
+        groupBox_6->setTitle(QApplication::translate("MainWindow", "\346\225\260\346\215\256\344\274\240\350\276\223", Q_NULLPTR));
+        label_16->setText(QString());
+        label_17->setText(QApplication::translate("MainWindow", "\346\223\215\344\275\234", Q_NULLPTR));
         label_sended_3->setText(QString());
         label_speed_3->setText(QString());
         bt_task_begin->setText(QApplication::translate("MainWindow", "begin", Q_NULLPTR));
-        bt_choose_file->setText(QApplication::translate("MainWindow", "ChooseFile", Q_NULLPTR));
         bt_detect_net_5->setText(QApplication::translate("MainWindow", "stop", Q_NULLPTR));
-        label_15->setText(QApplication::translate("MainWindow", "console", Q_NULLPTR));
-        bt_init->setText(QApplication::translate("MainWindow", "begin", Q_NULLPTR));
+        label_18->setText(QApplication::translate("MainWindow", "\350\276\223\345\205\245\346\225\260\346\215\256", Q_NULLPTR));
+        label_15->setText(QApplication::translate("MainWindow", "\346\230\276\347\244\272\347\252\227\345\217\243", Q_NULLPTR));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", Q_NULLPTR));
         toolBar_2->setWindowTitle(QApplication::translate("MainWindow", "toolBar_2", Q_NULLPTR));
     } // retranslateUi
