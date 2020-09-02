@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = web_app1.0.0
-DISTDIR = /home/fzk/401/src/web_app/.tmp/web_app1.0.0
+DISTDIR = /home/fzk/401/src/udp_qt/.tmp/web_app1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/fzk/anaconda3/lib
 LIBS          = $(SUBLIBS) -lrt -L/home/fzk/anaconda3/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
@@ -221,6 +221,7 @@ DIST          = ../../../anaconda3/mkspecs/features/spec_pre.prf \
 		../../../anaconda3/mkspecs/features/qt_config.prf \
 		../../../anaconda3/mkspecs/linux-g++/qmake.conf \
 		../../../anaconda3/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../anaconda3/mkspecs/features/exclusive_builds.prf \
 		../../../anaconda3/mkspecs/features/toolchain.prf \
 		../../../anaconda3/mkspecs/features/default_pre.prf \
@@ -417,6 +418,7 @@ Makefile: web_app.pro ../../../anaconda3/mkspecs/linux-g++/qmake.conf ../../../a
 		../../../anaconda3/mkspecs/features/qt_config.prf \
 		../../../anaconda3/mkspecs/linux-g++/qmake.conf \
 		../../../anaconda3/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../anaconda3/mkspecs/features/exclusive_builds.prf \
 		../../../anaconda3/mkspecs/features/toolchain.prf \
 		../../../anaconda3/mkspecs/features/default_pre.prf \
@@ -599,6 +601,7 @@ Makefile: web_app.pro ../../../anaconda3/mkspecs/linux-g++/qmake.conf ../../../a
 ../../../anaconda3/mkspecs/features/qt_config.prf:
 ../../../anaconda3/mkspecs/linux-g++/qmake.conf:
 ../../../anaconda3/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../anaconda3/mkspecs/features/exclusive_builds.prf:
 ../../../anaconda3/mkspecs/features/toolchain.prf:
 ../../../anaconda3/mkspecs/features/default_pre.prf:
@@ -956,7 +959,7 @@ moc_mainwindow.cpp: ../../../anaconda3/include/qt/QtWidgets/QMainWindow \
 		mainwindow.h \
 		moc_predefs.h \
 		../../../anaconda3/bin/moc
-	/home/fzk/anaconda3/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/fzk/anaconda3/mkspecs/linux-g++ -I/home/fzk/401/src/web_app -I/home/fzk/anaconda3/include/qt -I/home/fzk/anaconda3/include/qt/QtWidgets -I/home/fzk/anaconda3/include/qt/QtGui -I/home/fzk/anaconda3/include/qt/QtNetwork -I/home/fzk/anaconda3/include/qt/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/home/fzk/anaconda3/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/fzk/anaconda3/mkspecs/linux-g++ -I/home/fzk/401/src/udp_qt -I/home/fzk/anaconda3/include/qt -I/home/fzk/anaconda3/include/qt/QtWidgets -I/home/fzk/anaconda3/include/qt/QtGui -I/home/fzk/anaconda3/include/qt/QtNetwork -I/home/fzk/anaconda3/include/qt/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_tcpserver.cpp: ../../../anaconda3/include/qt/QtNetwork/QTcpServer \
 		../../../anaconda3/include/qt/QtNetwork/qtcpserver.h \
@@ -1027,7 +1030,7 @@ moc_tcpserver.cpp: ../../../anaconda3/include/qt/QtNetwork/QTcpServer \
 		tcpserver.h \
 		moc_predefs.h \
 		../../../anaconda3/bin/moc
-	/home/fzk/anaconda3/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/fzk/anaconda3/mkspecs/linux-g++ -I/home/fzk/401/src/web_app -I/home/fzk/anaconda3/include/qt -I/home/fzk/anaconda3/include/qt/QtWidgets -I/home/fzk/anaconda3/include/qt/QtGui -I/home/fzk/anaconda3/include/qt/QtNetwork -I/home/fzk/anaconda3/include/qt/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include tcpserver.h -o moc_tcpserver.cpp
+	/home/fzk/anaconda3/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/fzk/anaconda3/mkspecs/linux-g++ -I/home/fzk/401/src/udp_qt -I/home/fzk/anaconda3/include/qt -I/home/fzk/anaconda3/include/qt/QtWidgets -I/home/fzk/anaconda3/include/qt/QtGui -I/home/fzk/anaconda3/include/qt/QtNetwork -I/home/fzk/anaconda3/include/qt/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include tcpserver.h -o moc_tcpserver.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1617,21 +1620,129 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../anaconda3/include/qt/QtCore/QDataStream \
 		../../../anaconda3/include/qt/QtCore/QTextStream \
 		ui_mainwindow.h \
+		../../../anaconda3/include/qt/QtWidgets/QAction \
+		../../../anaconda3/include/qt/QtWidgets/qaction.h \
+		../../../anaconda3/include/qt/QtWidgets/qactiongroup.h \
+		../../../anaconda3/include/qt/QtWidgets/QApplication \
+		../../../anaconda3/include/qt/QtWidgets/qapplication.h \
+		../../../anaconda3/include/qt/QtWidgets/qdesktopwidget.h \
+		../../../anaconda3/include/qt/QtGui/qguiapplication.h \
+		../../../anaconda3/include/qt/QtGui/qinputmethod.h \
+		../../../anaconda3/include/qt/QtWidgets/QButtonGroup \
+		../../../anaconda3/include/qt/QtWidgets/qbuttongroup.h \
+		../../../anaconda3/include/qt/QtWidgets/QComboBox \
+		../../../anaconda3/include/qt/QtWidgets/qcombobox.h \
+		../../../anaconda3/include/qt/QtWidgets/qabstractitemdelegate.h \
+		../../../anaconda3/include/qt/QtWidgets/qstyleoption.h \
+		../../../anaconda3/include/qt/QtWidgets/qabstractspinbox.h \
+		../../../anaconda3/include/qt/QtGui/qvalidator.h \
+		../../../anaconda3/include/qt/QtWidgets/qslider.h \
+		../../../anaconda3/include/qt/QtWidgets/qabstractslider.h \
+		../../../anaconda3/include/qt/QtWidgets/qstyle.h \
+		../../../anaconda3/include/qt/QtWidgets/qtabbar.h \
+		../../../anaconda3/include/qt/QtWidgets/qrubberband.h \
+		../../../anaconda3/include/qt/QtWidgets/qframe.h \
+		../../../anaconda3/include/qt/QtWidgets/QGroupBox \
+		../../../anaconda3/include/qt/QtWidgets/qgroupbox.h \
+		../../../anaconda3/include/qt/QtWidgets/QHeaderView \
+		../../../anaconda3/include/qt/QtWidgets/qheaderview.h \
+		../../../anaconda3/include/qt/QtWidgets/qabstractitemview.h \
+		../../../anaconda3/include/qt/QtWidgets/qabstractscrollarea.h \
+		../../../anaconda3/include/qt/QtWidgets/QLabel \
+		../../../anaconda3/include/qt/QtWidgets/qlabel.h \
+		../../../anaconda3/include/qt/QtWidgets/QMenuBar \
+		../../../anaconda3/include/qt/QtWidgets/qmenubar.h \
+		../../../anaconda3/include/qt/QtWidgets/qmenu.h \
+		../../../anaconda3/include/qt/QtWidgets/QPushButton \
+		../../../anaconda3/include/qt/QtWidgets/qpushbutton.h \
+		../../../anaconda3/include/qt/QtWidgets/qabstractbutton.h \
+		../../../anaconda3/include/qt/QtWidgets/QStatusBar \
+		../../../anaconda3/include/qt/QtWidgets/qstatusbar.h \
+		../../../anaconda3/include/qt/QtWidgets/QTextEdit \
+		../../../anaconda3/include/qt/QtWidgets/qtextedit.h \
+		../../../anaconda3/include/qt/QtGui/qtextdocument.h \
+		../../../anaconda3/include/qt/QtGui/qtextoption.h \
+		../../../anaconda3/include/qt/QtGui/qtextcursor.h \
+		../../../anaconda3/include/qt/QtGui/qtextformat.h \
+		../../../anaconda3/include/qt/QtGui/qpen.h \
+		../../../anaconda3/include/qt/QtWidgets/QToolBar \
+		../../../anaconda3/include/qt/QtWidgets/qtoolbar.h \
+		../../../anaconda3/include/qt/QtWidgets/QWidget \
 		net_speed.h \
 		../../../anaconda3/include/qt/QtWidgets/QMessageBox \
 		../../../anaconda3/include/qt/QtWidgets/qmessagebox.h \
 		../../../anaconda3/include/qt/QtWidgets/qdialog.h \
 		../../../anaconda3/include/qt/QtWidgets/QFileDialog \
-		../../../anaconda3/include/qt/QtWidgets/qfiledialog.h
+		../../../anaconda3/include/qt/QtWidgets/qfiledialog.h \
+		../../../anaconda3/include/qt/QtNetwork/QUdpSocket \
+		common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 net_speed.o: net_speed.cpp packet.h \
 		common.h \
+		../../../anaconda3/include/qt/QtCore/QString \
+		../../../anaconda3/include/qt/QtCore/qstring.h \
+		../../../anaconda3/include/qt/QtCore/qchar.h \
+		../../../anaconda3/include/qt/QtCore/qglobal.h \
+		../../../anaconda3/include/qt/QtCore/qconfig-bootstrapped.h \
+		../../../anaconda3/include/qt/QtCore/qconfig.h \
+		../../../anaconda3/include/qt/QtCore/qtcore-config.h \
+		../../../anaconda3/include/qt/QtCore/qsystemdetection.h \
+		../../../anaconda3/include/qt/QtCore/qprocessordetection.h \
+		../../../anaconda3/include/qt/QtCore/qcompilerdetection.h \
+		../../../anaconda3/include/qt/QtCore/qtypeinfo.h \
+		../../../anaconda3/include/qt/QtCore/qsysinfo.h \
+		../../../anaconda3/include/qt/QtCore/qlogging.h \
+		../../../anaconda3/include/qt/QtCore/qflags.h \
+		../../../anaconda3/include/qt/QtCore/qatomic.h \
+		../../../anaconda3/include/qt/QtCore/qbasicatomic.h \
+		../../../anaconda3/include/qt/QtCore/qatomic_bootstrap.h \
+		../../../anaconda3/include/qt/QtCore/qgenericatomic.h \
+		../../../anaconda3/include/qt/QtCore/qatomic_cxx11.h \
+		../../../anaconda3/include/qt/QtCore/qatomic_msvc.h \
+		../../../anaconda3/include/qt/QtCore/qglobalstatic.h \
+		../../../anaconda3/include/qt/QtCore/qmutex.h \
+		../../../anaconda3/include/qt/QtCore/qnumeric.h \
+		../../../anaconda3/include/qt/QtCore/qversiontagging.h \
+		../../../anaconda3/include/qt/QtCore/qbytearray.h \
+		../../../anaconda3/include/qt/QtCore/qrefcount.h \
+		../../../anaconda3/include/qt/QtCore/qnamespace.h \
+		../../../anaconda3/include/qt/QtCore/qarraydata.h \
+		../../../anaconda3/include/qt/QtCore/qstringbuilder.h \
 		net_speed.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o net_speed.o net_speed.cpp
 
 common.o: common.cpp packet.h \
-		net_speed.h
+		net_speed.h \
+		../../../anaconda3/include/qt/QtCore/QString \
+		../../../anaconda3/include/qt/QtCore/qstring.h \
+		../../../anaconda3/include/qt/QtCore/qchar.h \
+		../../../anaconda3/include/qt/QtCore/qglobal.h \
+		../../../anaconda3/include/qt/QtCore/qconfig-bootstrapped.h \
+		../../../anaconda3/include/qt/QtCore/qconfig.h \
+		../../../anaconda3/include/qt/QtCore/qtcore-config.h \
+		../../../anaconda3/include/qt/QtCore/qsystemdetection.h \
+		../../../anaconda3/include/qt/QtCore/qprocessordetection.h \
+		../../../anaconda3/include/qt/QtCore/qcompilerdetection.h \
+		../../../anaconda3/include/qt/QtCore/qtypeinfo.h \
+		../../../anaconda3/include/qt/QtCore/qsysinfo.h \
+		../../../anaconda3/include/qt/QtCore/qlogging.h \
+		../../../anaconda3/include/qt/QtCore/qflags.h \
+		../../../anaconda3/include/qt/QtCore/qatomic.h \
+		../../../anaconda3/include/qt/QtCore/qbasicatomic.h \
+		../../../anaconda3/include/qt/QtCore/qatomic_bootstrap.h \
+		../../../anaconda3/include/qt/QtCore/qgenericatomic.h \
+		../../../anaconda3/include/qt/QtCore/qatomic_cxx11.h \
+		../../../anaconda3/include/qt/QtCore/qatomic_msvc.h \
+		../../../anaconda3/include/qt/QtCore/qglobalstatic.h \
+		../../../anaconda3/include/qt/QtCore/qmutex.h \
+		../../../anaconda3/include/qt/QtCore/qnumeric.h \
+		../../../anaconda3/include/qt/QtCore/qversiontagging.h \
+		../../../anaconda3/include/qt/QtCore/qbytearray.h \
+		../../../anaconda3/include/qt/QtCore/qrefcount.h \
+		../../../anaconda3/include/qt/QtCore/qnamespace.h \
+		../../../anaconda3/include/qt/QtCore/qarraydata.h \
+		../../../anaconda3/include/qt/QtCore/qstringbuilder.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o common.o common.cpp
 
 tcpserver.o: tcpserver.cpp tcpserver.h \

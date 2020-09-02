@@ -37,6 +37,9 @@ int _resend_times = 0;
 int _resend_data_size;
 int _target_port;
 int _is_tasking;
+int _send_index;
+
+Ui::MainWindow *ui_cpy;
 
 static void signal_handler(int signo) {
     ssize_t receive_len;
@@ -56,10 +59,13 @@ static void signal_handler(int signo) {
     return ;
 }
 
-static void alarm_handler(int sloi){
+void alarm_handler(int sloi)
+{
     _resend_times += 1;
-    if(_resend_times>5){
+    ui_cpy->text_console->append("传输超时，正在重传");
+    if(_resend_times>=5){
         std::cout << "传输失败超过５次" << std::endl;
+        ui_cpy->text_console->append("重传次数超过限制，结束任务");
         _is_tasking = 0;
         _resend_times = 0;
         return;
@@ -69,6 +75,20 @@ static void alarm_handler(int sloi){
     alarm(_resend_wait_time);
     return;
 }
+
+//static void alarm_handler(int sloi){
+//    _resend_times += 1;
+//    if(_resend_times>5){
+//        std::cout << "传输失败超过５次" << std::endl;
+//        _is_tasking = 0;
+//        _resend_times = 0;
+//        return;
+//    }
+//    QByteArray data_gram = QByteArray(_resend_data_packet, _resend_data_size);
+//    _udpSock_r->writeDatagram(_resend_data_packet, _resend_data_size, *_targetIp, UDP_R_PORT);
+//    alarm(_resend_wait_time);
+//    return;
+//}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -151,20 +171,24 @@ void MainWindow::on_bt_detect_net_clicked()
 
 void MainWindow::on_bt_task_begin_clicked()
 {
+    if(_is_tasking==1){
+        QMessageBox::information(NULL, "警告", "有任务正在进行",
+            QMessageBox::Yes, QMessageBox::Yes);
+        return;
+    }
     std::cout << "开始任务"<< std::endl;
     _ptr_send_data = new char[10]{'a','b','c','d','e','f','g','h','i','j'};
     _len_send_data = 10;
     if(!_targetIp->setAddress(ui->target_ip_edit->toPlainText())){
         std::cout << "ip error" << std::endl;
-        ui->text_console->setText("ip error");
+        ui->text_console->setText("没有输入正确的目标ip");
         return;
     }
     if(isDigitStr(ui->cache_size_edit->toPlainText())==0){
         std::cout << "未输入分片大小" << std::endl;
-        ui->text_console->setText("haven't fen pian");
+        ui->text_console->setText("没有输入正确的分片大小");
         return;
     }
-    ui->text_console->setText("task begin\n target ip:"+ui->target_ip_edit->toPlainText());
     _is_tasking = 1;
     int buf_size = ui->cache_size_edit->toPlainText().toInt();
     UDP_PACKET send_data;
@@ -174,8 +198,11 @@ void MainWindow::on_bt_task_begin_clicked()
         send_data.total_len = (int)(_len_send_data/buf_size);
     else
         send_data.total_len = (int)(_len_send_data/buf_size)+1;
-    std::cout <<"分成"<<send_data.total_len <<"片"<< std::endl;
-    ui->text_console->append("dived into "+send_data.total_len);
+    ui->text_console->append("任务开始");
+    ui->text_console->append("目标ip:");
+    ui->text_console->append("分片大小:"+buf_size);
+    ui->text_console->append("分片个数:"+send_data.total_len);
+
     send_data.packet_len = buf_size;
     send_data.index = 0;
     send_data.uuid = generate_uuid();
@@ -187,6 +214,11 @@ void MainWindow::on_bt_task_begin_clicked()
     _resend_data_packet = data_send_buf;
     _resend_data_size = buf_size+sizeof(UDP_PACKET);
     alarm(_resend_wait_time);
+    _send_index = 0;
+    QString s = "正在传输第"+(_send_index+1);
+    s += "片数据";
+    ui->text_console->append(s);
+
 }
 
 void MainWindow::tcpClientDataReceived(){
@@ -253,10 +285,15 @@ void MainWindow::recv_udp_data()
         if(recv_data.flag==FLAG_ACK){
             alarm(0);
             delete _resend_data_packet;
+            if(_send_index+1!=recv_data.index)
+                return;
             if(recv_data.index >= recv_data.total_len){
                 std::cout<<"传输成功"<<std::endl;
+                _resend_times = 0;
+                _send_index = -100;
                 return;
             }
+            ui->text_console->append((_send_index+1)+"片数据传输成功");
             UDP_PACKET send_data;
             send_data.type = TYPE_DATA;
             send_data.flag = FLAG_SEND;
@@ -272,11 +309,17 @@ void MainWindow::recv_udp_data()
             _resend_data_packet = data_send_buf;
             _resend_data_size = send_data.packet_len+sizeof(UDP_PACKET);
             alarm(_resend_wait_time);
+
+            _send_index += 1;
+            QString s = "正在传输第"+(_send_index+1);
+            s += "片数据";
+            ui->text_console->append(s);
         }
 
     }
 
 }
+
 
 void MainWindow::on_bt_choose_file_clicked()
 {
@@ -300,6 +343,8 @@ int MainWindow::init()
     int port = ui->port_edit->toPlainText().toInt();
      _udpSock_r->bind(port);
     connect(_udpSock_r,SIGNAL(readyRead()),this,SLOT(recv_udp_data()));
+    ui->text_console->document()->setMaximumBlockCount(10);
+    ui_cpy = ui;
 
 }
 
